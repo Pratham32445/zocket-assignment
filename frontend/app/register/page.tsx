@@ -8,7 +8,14 @@ import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -47,8 +54,12 @@ export default function Register() {
       } else {
         setError(data.error || "Registration failed");
       }
-    } catch (err) {
-      setError("Something went wrong. Try again.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong. Try again.");
+      }
     }
   };
 
@@ -58,7 +69,9 @@ export default function Register() {
       <main className="container mx-auto px-4 py-16">
         <Card className="max-w-md mx-auto">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">Create an Account</CardTitle>
+            <CardTitle className="text-2xl text-center">
+              Create an Account
+            </CardTitle>
             <CardDescription className="text-center">
               Join TaskMaster and start boosting your productivity today
             </CardDescription>
@@ -86,7 +99,9 @@ export default function Register() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full">Sign Up</Button>
+              <Button type="submit" className="w-full">
+                Sign Up
+              </Button>
             </form>
           </CardContent>
           <CardFooter className="justify-center">

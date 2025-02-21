@@ -20,7 +20,6 @@ export function AddTaskDialog({ children }: { children: React.ReactNode }) {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    // Here you would typically send the new task data to your backend
     console.log("New task submitted")
     setOpen(false)
   }

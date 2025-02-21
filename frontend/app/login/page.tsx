@@ -14,7 +14,6 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  // **Redirect if user is already logged in**
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -37,12 +36,16 @@ export default function Login() {
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem("token", data.token);
-        router.push("/dashboard"); // Redirect to dashboard after login
+        router.push("/dashboard");
       } else {
         setError(data.error || "Login failed");
       }
-    } catch (err) {
-      setError("Something went wrong. Try again.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong. Try again.");
+      }
     }
   };
 
@@ -50,7 +53,9 @@ export default function Login() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-center mb-6 text-primary">Login</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 text-primary">
+          Login
+        </h1>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
           <div>
@@ -73,7 +78,9 @@ export default function Login() {
               required
             />
           </div>
-          <Button type="submit" className="w-full">Login</Button>
+          <Button type="submit" className="w-full">
+            Login
+          </Button>
         </form>
       </main>
     </div>
