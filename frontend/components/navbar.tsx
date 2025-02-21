@@ -9,7 +9,7 @@ export function Navbar() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token); // Set to true if token exists
+    setIsLoggedIn(!!token); 
   }, []);
 
   return (
